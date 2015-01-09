@@ -15,7 +15,7 @@ module.exports = function(grunt) {
         }
       }
     }
-  })
+  });
 
   grunt.registerTask("default", function() {
     var c = this.async();
@@ -24,7 +24,7 @@ module.exports = function(grunt) {
     var style = fs.readFileSync("src/styles.less", { encoding: "utf8" });
 
     less.render(style, function(err, css) {
-      var output = grunt.template.process(index, { 
+      var output = grunt.template.process(index, {
         data: {
           style: css,
           script: fs.readFileSync("src/script.js", { encoding: "utf8" }),

@@ -9,23 +9,27 @@
   </head>
   <body>
 
-    <section class="lightbox">
-      <canvas class="display"></canvas>
-    </section>
+    <main>
 
-    <form>
-      <input type="text" placeholder="Largest dimension" class="limit" value="1000">
+      <section class="lightbox">
+        <canvas class="display"></canvas>
+      </section>
 
-      <nav class="toggle">
-        <input type="radio" name="contrast" id="light" value="light" checked>
-        <label for="light" class="radio-button left">Light</label>
-      
-        <input type="radio" name="contrast" id="dark" value="dark">
-        <label for="dark" class="radio-button right">Dark</label>
-      </nav>
+      <form>
+        <input type="text" placeholder="Largest dimension" class="limit" value="1000">
 
-      <a download="image.jpg" class="download-button" href="">Download</a>
-    </form>
+        <nav class="toggle">
+          <input type="radio" name="contrast" id="light" value="light" checked>
+          <label for="light" class="radio-button left">Light</label>
+        
+          <input type="radio" name="contrast" id="dark" value="dark">
+          <label for="dark" class="radio-button right">Dark</label>
+        </nav>
+
+        <a download="image.jpg" class="download-button" href="">Download</a>
+      </form>
+
+    </main>
 
     <script>
 <%= script %>
