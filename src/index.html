@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Watermarker</title>
+    <style>
+<%= style %>
+    </style>
+  </head>
+  <body>
+
+    <section class="lightbox">
+      <canvas class="display"></canvas>
+    </section>
+
+    <form>
+      <input type="text" placeholder="Largest dimension" class="limit" value="1000">
+
+      <nav class="toggle">
+        <input type="radio" name="contrast" id="light" value="light" checked>
+        <label for="light" class="radio-button left">Light</label>
+      
+        <input type="radio" name="contrast" id="dark" value="dark">
+        <label for="dark" class="radio-button right">Dark</label>
+      </nav>
+
+      <a download="image.jpg" class="download-button" href="">Download</a>
+    </form>
+
+    <script>
+<%= script %>
+    </script>
+  </body>
+</html>
