@@ -68,6 +68,18 @@
     reader.readAsDataURL(file);
   };
 
+  document.querySelector("input[type=file]").addEventListener("change", function(e) {
+    var input = e.target;
+    var file = input.files[0];
+    var reader = new FileReader();
+    reader.onload = function() {
+      sourceImage = new Image();
+      sourceImage.onload = render;
+      sourceImage.src = reader.result;
+    }
+    reader.readAsDataURL(file);
+  });
+
   document.body.addEventListener("dragover", cancel);
   document.body.addEventListener("drop", onDrop);
 

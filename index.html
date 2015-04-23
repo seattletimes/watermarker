@@ -27,11 +27,18 @@ main {
 }
 .lightbox {
   flex: 1 1 0px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  position: relative;
   background: #333;
   max-width: calc(100% - 250px);
+}
+canvas {
+  border: 1px dashed gray;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  max-height: 100%;
+  max-width: 100%;
 }
 form {
   width: 250px;
@@ -76,11 +83,6 @@ form input[type=radio]:checked + label {
   background: #333;
   color: white;
 }
-canvas {
-  border: 1px dashed gray;
-  max-width: 100%;
-  max-height: 100%;
-}
 .download-button {
   display: block;
   text-decoration: none;
@@ -102,6 +104,8 @@ canvas {
       </section>
 
       <form>
+        <input type="file">
+
         <input type="text" placeholder="Largest dimension" class="limit" value="1000">
 
         <nav class="toggle">
@@ -187,6 +191,18 @@ canvas {
     };
     reader.readAsDataURL(file);
   };
+
+  document.querySelector("input[type=file]").addEventListener("change", function(e) {
+    var input = e.target;
+    var file = input.files[0];
+    var reader = new FileReader();
+    reader.onload = function() {
+      sourceImage = new Image();
+      sourceImage.onload = render;
+      sourceImage.src = reader.result;
+    }
+    reader.readAsDataURL(file);
+  });
 
   document.body.addEventListener("dragover", cancel);
   document.body.addEventListener("drop", onDrop);
