@@ -33,7 +33,7 @@ module.exports = function(grunt) {
         }
       });
 
-      fs.writeFileSync("watermark.html", output);
+      fs.writeFileSync("index.html", output);
       c();
     });
     
