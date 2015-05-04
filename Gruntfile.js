@@ -4,20 +4,30 @@ module.exports = function(grunt) {
   var fs = require("fs");
 
   grunt.loadNpmTasks("grunt-contrib-watch");
+  grunt.loadNpmTasks("grunt-contrib-connect");
 
   grunt.initConfig({
     watch: {
       main: {
         files: ["src/*.*"],
-        tasks: ["default"],
+        tasks: ["build"],
         options: {
-          spawn: false
+          spawn: false,
+          livereload: true
+        }
+      }
+    },
+    connect: {
+      main: {
+        options: {
+          livereload: true,
+          base: "."
         }
       }
     }
   });
 
-  grunt.registerTask("default", function() {
+  grunt.registerTask("build", function() {
     var c = this.async();
 
     var index = fs.readFileSync("src/index.html", { encoding: "utf8" });
@@ -38,5 +48,7 @@ module.exports = function(grunt) {
     });
     
   });
+
+  grunt.registerTask("default", ["build", "connect", "watch"]);
 
 };
