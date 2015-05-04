@@ -15,10 +15,26 @@
         <canvas class="display"></canvas>
       </section>
 
-      <form>
+      <form autocomplete="off">
+        <p>
+          Click on a corner to set the position of the watermark.
+        </p>
         <input type="file">
 
+        <label>Largest dimension</label>
         <input type="text" placeholder="Largest dimension" class="limit" value="1000">
+
+        <nav class="toggle">
+          <input type="radio" name="type" id="logo" value="logo" checked>
+          <label for="logo" class="radio-button">Logo</label>
+
+          <input type="radio" name="type" id="text" value="text">
+          <label for="text" class="radio-button">Text</label>
+        </nav>
+
+        <input type="text" placeholder="Watermark text" class="manual">
+        <label>Font size</label>
+        <input type="text" value=16 class="font-size">
 
         <nav class="toggle">
           <input type="radio" name="contrast" id="light" value="light" checked>

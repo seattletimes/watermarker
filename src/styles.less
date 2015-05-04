@@ -39,6 +39,7 @@ canvas {
 }
 
 form {
+
   width: 250px;
   padding: 20px;
   flex-grow: 0;
@@ -59,11 +60,11 @@ form {
       flex: 1;
       text-align: center;
 
-      &.left {
+      &:first-of-type {
         border-radius: 4px 0 0 4px;
       }
 
-      &.right {
+      &:last-of-type {
         border-radius: 0 4px 4px 0;
       }
     }

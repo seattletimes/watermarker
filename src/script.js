@@ -11,8 +11,10 @@
   var canvas = query("canvas");
   var context = canvas.getContext("2d");
   context.imageSmoothingEnabled = true;
-  var config = {
-    markLocation: { x: 10, y: 10 }
+  var config = window.config = {
+    markLocation: { x: 10, y: 10 },
+    textLocation: ["top", "left"],
+    fontSize: 16
   };
   var light = new Image();
   light.src = "data:image/png;base64,<%= light %>";
@@ -24,6 +26,9 @@
   var updateConfig = function() {
     config.limit = query(".limit").value;
     config.contrast = query("[name=contrast]:checked").value;
+    config.type = query("[name=type]:checked").value;
+    config.text = query(".manual").value;
+    config.fontSize = query(".font-size").value * 1;
   };
 
   var render = function() {
@@ -38,8 +43,20 @@
       canvas.width = config.limit * width;
     }
     context.drawImage(sourceImage, 0, 0, canvas.width, canvas.height);
-    var watermark = config.contrast == "light" ? light : dark;
-    context.drawImage(watermark, config.markLocation.x, config.markLocation.y);
+    if (config.type == "logo") {
+      //add ST logo
+      var watermark = config.contrast == "light" ? light : dark;
+      context.drawImage(watermark, config.markLocation.x, config.markLocation.y);
+    } else {
+      var metrics = context.measureText(config.text);
+      var x = config.textLocation[1] == "left" ? 10 : canvas.width - 10;
+      var y = config.textLocation[0] == "top" ? 10 : canvas.height - 10;
+      context.fillStyle = config.contrast == "light" ? "#DDD" : "#222";
+      context.textBaseline = config.textLocation[0];
+      context.textAlign = config.textLocation[1];
+      context.font = config.fontSize + "px Georgia";
+      context.fillText(config.text, x, y);
+    }
     var data = canvas.toDataURL("image/jpeg");
     download.setAttribute("href", data);
   };
@@ -90,15 +107,20 @@
       x: e.pageX - canvasCoords.left,
       y: e.pageY - canvasCoords.top
     };
+    config.textLocation = [];
     if (adjusted.x > canvasCoords.width / 2) {
       config.markLocation.x = canvas.width - 10 - light.width;
+      config.textLocation[1] = "right";
     } else {
       config.markLocation.x = 10;
+      config.textLocation[1] = "left";
     }
     if (adjusted.y > canvasCoords.height / 2) {
       config.markLocation.y = canvas.height - 10 - light.height;
+      config.textLocation[0] = "bottom";
     } else {
       config.markLocation.y = 10;
+      config.textLocation[0] = "top";
     }
     render();
   };
