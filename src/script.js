@@ -54,7 +54,7 @@
       context.fillStyle = config.contrast == "light" ? "#DDD" : "#222";
       context.textBaseline = config.textLocation[0];
       context.textAlign = config.textLocation[1];
-      context.font = config.fontSize + "px Georgia";
+      context.font = config.fontSize + "px ff-meta-serif-web-pro";
       context.fillText(config.text, x, y);
     }
     var data = canvas.toDataURL("image/jpeg");
@@ -137,5 +137,29 @@
 
   //kickoff
   updateConfig();
+
+  //load and launch typekit
+  var typeConfig = {
+    kitId: 'rvq5yyp',
+    scriptTimeout: 3000,
+    active: () => window.render ? render() : null
+  },
+  d = document,
+  h = d.documentElement, t = setTimeout(function() {
+    h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive";
+  }, typeConfig.scriptTimeout), tk = d.createElement("script"), f = false, s = d.getElementsByTagName("script")[0], a;
+  h.className += " wf-loading";
+  tk.src = '//use.typekit.net/' + typeConfig.kitId + '.js';
+  tk.async = true;
+  tk.onload = tk.onreadystatechange = function() {
+    a = this.readyState;
+    if (f || a && a != "complete" && a != "loaded") return;
+    f = true;
+    clearTimeout(t);
+    try {
+      Typekit.load(typeConfig)
+    } catch (e) {}
+  };
+  s.parentNode.insertBefore(tk, s);
 
 })();
